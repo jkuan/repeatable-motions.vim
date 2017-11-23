@@ -386,11 +386,11 @@ let s:default_mappings = [
 
 command ListRepeatableMotions call <SID>ListMotions()
 
-noremap <script> <expr> <silent> <Plug>RepeatMotionUp <SID>RepeatMotion(-2)
-noremap <script> <expr> <silent> <Plug>RepeatMotionDown <SID>RepeatMotion(2)
-noremap <script> <expr> <silent> <Plug>RepeatMotionLeft <SID>RepeatMotion(-1)
-noremap <script> <expr> <silent> <Plug>RepeatMotionRight <SID>RepeatMotion(1)
-noremap <script> <expr> <silent> <Plug>RepeatMostRecentMotion <SID>RepeatMotion()
+map <expr> <silent> <Plug>RepeatMotionUp <SID>RepeatMotion(-2)
+map <expr> <silent> <Plug>RepeatMotionDown <SID>RepeatMotion(2)
+map <expr> <silent> <Plug>RepeatMotionLeft <SID>RepeatMotion(-1)
+map <expr> <silent> <Plug>RepeatMotionRight <SID>RepeatMotion(1)
+map <expr> <silent> <Plug>RepeatMostRecentMotion <SID>RepeatMotion()
 
 if g:tf_workaround
     noremap <script> <expr> <silent> t <SID>TFWorkaround('t')

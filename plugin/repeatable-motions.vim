@@ -107,7 +107,8 @@ function! s:MakeKeysFeedable(keystrokes)
                 \ "<kHome>",   "<kEnd>",    "<kPageUp>",    "<kPageDown>",
                 \ "<kPlus>",   "<kMinus>",  "<kMultiply>",  "<kDivide>",
                 \ "<kEnter>",  "<kPoint>",  "<k0>",         "<S-",
-                \ "<C-",       "<M-",       "<A-",          "<D-"
+                \ "<C-",       "<M-",       "<A-",          "<D-",
+                \ "<Plug>"
                 \]
     for s in specialChars
         let m = substitute(m, '\('.s.'\)', '\\\1', 'g')
@@ -123,11 +124,15 @@ function! AddRepeatableMotion(backwards, forwards, linewise)
     let motionPair = { 'linewise': a:linewise }
     let defaultMaparg = { 'mode': '', 'noremap': 1, 'buffer': 0, 'silent': 0, 'expr': 0, 'nowait': 0 }
     let buffer = 0
-    let mapstring = 'noremap <expr>'
 
     let maparg = maparg(a:backwards, '', 0, 1)
     if !empty(maparg)
         let motionPair.backwards = maparg
+        if maparg.noremap
+            let mapstring = 'noremap <expr>'
+        else
+            let mapstring = 'map <expr>'
+        endif
         if maparg.buffer
             let mapstring .= ' <buffer>'
         endif
@@ -136,6 +141,7 @@ function! AddRepeatableMotion(backwards, forwards, linewise)
             let mapstring .= ' <silent>'
         endif
     else
+        let mapstring = 'noremap <expr>'
         let motionPair.backwards = deepcopy(defaultMaparg)
         let motionPair.backwards.lhs = a:backwards
         let motionPair.backwards.rhs = a:backwards
